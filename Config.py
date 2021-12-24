@@ -6,8 +6,8 @@ import subprocess
 import shutil
 import  os 
 import tkinter.filedialog
-
-
+from tkinter import *
+pi_mac_address_ranges = ['B8-27-EB','DC-A6-32','E4-5F-01']
 window = tk.Tk()
 frame_wifi = tk.Frame(master=window, width=400, height=400,)
 ssid_label = tk.Label(text="Wifi SSID",master=frame_wifi)
@@ -53,8 +53,22 @@ def write_files():
     replace_text_in_file(wpa_file_path,'your_network_name',ssid_entry.get())
     replace_text_in_file(wpa_file_path,'your_wifi_password',password_entry.get())
 
-
-
+def find_pi():
+    all_lines = subprocess.check_output('arp -a', universal_newlines=True).split('\n')
+    arr =[] 
+    for device in all_lines:
+        #print(device)
+        #print('1')
+        for possibleMac in pi_mac_address_ranges:
+            if possibleMac.lower() in device.lower():
+                arr.append(device)
+        #if 'dc:a6:32'.lower() in device.lower():
+         #   arr.append(device)
+    print(arr)
+    Lb1.delete(0,'end')
+    Lb1.insert(0,arr)
+        
+    #print(all_lines)
 #tk.Label(text= "Select your PIs boot drive").pack() 
 select_drive_bttn= tk.Button(master=window,   command=select_drive,  text="Select PI Boot Drive")
 select_drive_bttn.pack()
@@ -64,5 +78,14 @@ write_files_bttn['state'] = 'disabled'
 
 write_files_bttn.pack()
 
+find_pi_bttn= tk.Button(master=window, command=find_pi,  text="Find PIs")
+
+find_pi_bttn.pack()
+global Lb1
+Lb1 = Listbox(window, width=150)
+Lb1.pack()
+
 window.mainloop()
+
+
 
