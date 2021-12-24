@@ -45,6 +45,7 @@ def select_drive():
     found_drive = tk.filedialog.askdirectory()
     print(found_drive)
     drive_label.config(text=found_drive)
+    write_files_bttn['state'] = 'normal'
 
 def write_files():
     copy_file('ssh')
@@ -55,9 +56,12 @@ def write_files():
 
 
 #tk.Label(text= "Select your PIs boot drive").pack() 
-select_drive_bttn= tk.Button(master=window, command=select_drive,  text="Select PI Boot Drive")
+select_drive_bttn= tk.Button(master=window,   command=select_drive,  text="Select PI Boot Drive")
 select_drive_bttn.pack()
+global write_files_bttn
 write_files_bttn= tk.Button(master=window, command=write_files,  text="Write Files")
+write_files_bttn['state'] = 'disabled'
+
 write_files_bttn.pack()
 
 window.mainloop()
