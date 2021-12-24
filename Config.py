@@ -43,9 +43,14 @@ def get_local_file_path(sub_path):
 def select_drive():
     global found_drive
     found_drive = tk.filedialog.askdirectory()
-    print(found_drive)
-    drive_label.config(text=found_drive)
-    write_files_bttn['state'] = 'normal'
+    print('Using ' +  found_drive)
+   
+    try:
+         drive_label.config(text=found_drive)
+         write_files_bttn['state'] = 'normal'
+    except print(0):
+        pass
+   
 
 def write_files():
     copy_file('ssh')
@@ -65,8 +70,13 @@ def find_pi():
         #if 'dc:a6:32'.lower() in device.lower():
          #   arr.append(device)
     print(arr)
-    Lb1.delete(0,'end')
-    Lb1.insert(0,arr)
+    try:
+        Lb1.delete(0,'end')
+        Lb1.insert(0,arr)
+    except print(0):
+        pass
+    return arr
+   
         
     #print(all_lines)
 #tk.Label(text= "Select your PIs boot drive").pack() 
