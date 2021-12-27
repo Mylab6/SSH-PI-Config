@@ -43,6 +43,6 @@ class Utils:
             for possibleMac in self.pi_mac_address_ranges:
                 if possibleMac.lower() in device.lower():
                     arr.append(device)
-        print(arr)
+        #print(arr)
 
         return arr

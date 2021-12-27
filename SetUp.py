@@ -1,6 +1,10 @@
+from Utils import Utils
+
+
 class SetUp:
 
     def __init__(self) -> None:
+        self.utils = Utils() 
         self.main_menu()
     def main_menu(self):
         print("What would you like to do")
@@ -19,6 +23,7 @@ class SetUp:
     def open_gui(self):
         self.restart()
     def list_pi_ips(self):
+        print( self.utils.find_pi()) 
         self.restart()
         #pass
         
