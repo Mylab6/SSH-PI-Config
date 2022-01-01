@@ -40,13 +40,14 @@ class Utils:
         print(expected_config_path , ' : not found , check your path' )
            # return False , expected_config_path
         return False , expected_config_path
-    def write_files(self,ssid,password):
+    def write_files(self,ssid,password,country_code ):
 
       
         self.copy_file('ssh')
         wpa_file_path = self.copy_file('wpa_supplicant.conf')
         self.replace_text_in_file(wpa_file_path,'your_network_name',ssid)
         self.replace_text_in_file(wpa_file_path,'your_wifi_password',password)
+        self.replace_text_in_file(wpa_file_path,"Your_Country",country_code)
         return "PI SDCard Ready for SSH Over wifi"
         
 
@@ -54,7 +55,7 @@ class Utils:
         all_lines = subprocess.check_output('arp -a', universal_newlines=True).split('\n')
         arr =[] 
         for device in all_lines:
-            print(device)
+            #print(device)
             for possibleMac in self.pi_mac_address_ranges:
                 if possibleMac.lower() in device.lower():
                     arr.append(device)
