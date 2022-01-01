@@ -21,16 +21,26 @@ class SetUp:
             self.list_pi_ips()
     def setup_wifi(self):
         #Number = int(input("Make a selection \n"))
-        target_drive =     input("Target Drive \n") 
+        target_drive =     input("Target Drive Path \n") 
         config_path , right_dir = self.utils.set_drive(target_drive) 
         
         if  right_dir:          
           
-
+            country_code = self.get_country() 
             ssid = input("SSID \n")
             password = self.get_password()
-            self.utils.write_files(ssid,password)
+            self.utils.write_files(ssid,password,country_code)
         self.restart() 
+
+    def get_country(self):
+        country = input("Country Code, default US \n")
+        if len( country ) is 2:
+            print('Using: ', country)
+            return country
+        else:
+            print('Default to US ')
+
+            return "US"
 
     def get_password(self):
         password = getpass.getpass("Password \n")
